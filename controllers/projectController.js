@@ -2,6 +2,7 @@ var Project = require('../models/project')
 
 exports.project_get = function(req, res, next) {
     //TODO: 
+    
     res.send("NOT IMPLEMENTED: project get");
 };
 
