@@ -29,4 +29,6 @@ router.get('/api/task/list', task_controller.task_get);
 
 router.put('/api/task', task_controller.task_put);
 
+router.get('/api/task/user', task_controller.task_user_get);
+
 module.exports = router;

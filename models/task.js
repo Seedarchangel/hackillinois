@@ -9,8 +9,8 @@ var TaskSchema = new Schema(
         assigned_user: { type: String, max: 100 },
         due_date: { type: Date, default: Date.now},
         description: { type: String, max: 200},
-        prerequisite: {type: Schema.ObjectId, ref: 'Task'},
-        following: {type: Schema.ObjectId, ref: 'Task'}
+        prerequisite: [{type: Schema.ObjectId, ref: 'Task'}],
+        following: [{type: Schema.ObjectId, ref: 'Task'}]
     }
 );
 

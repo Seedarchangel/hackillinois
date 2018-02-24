@@ -12,7 +12,7 @@ exports.project_get = function (req, res, next) {
             err.status = 404;
             return next(err);
         }
-        res.send(result);
+        res.send(JSON.stringify(result));
     })
 };
 
