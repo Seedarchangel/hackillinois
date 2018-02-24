@@ -1,0 +1,48 @@
+{
+  "nodes": [
+    {
+      "color": "#4f19c7",
+      "name": "C",
+      "Status": "in_progress",
+      "attributes": {},
+      "x": -300,
+      "id": "C",
+      "Prerequisite": ["C++", "python"],
+      "following": ["C++", "python","C++", "python"]
+    },
+    {
+      "color": "#4f19c7",
+      "name": "C++",
+      "Status": "finished",
+      "attributes": {},
+      "x": -239.36383,
+      "id": "c++",
+      "Prerequisite": ["C++", "python","C++","C++"],
+      "following": ["C++", "python"]
+    },
+    {
+      "color": "#c71969",
+      "name": "python",
+      "Status": "unassigned",
+      "attributes": {},
+      "x": -134.2215,
+      "id": "python",
+      "Prerequisite": ["C"],
+      "following": []
+    }],
+    "edges": [
+    {
+      "sourceID": "C",
+      "attributes": {},
+      "targetID": "python",
+      "size": 1
+    },
+    {
+      "sourceID": "C",
+      "attributes": {},
+      "targetID": "C++",
+      "size": 1
+    }
+    
+    ]
+}
