@@ -14,3 +14,5 @@ var ProjectSchema = new Schema(
         task: [{ type: Schema.ObjectId, ref: 'Task'}]
     }
 );
+
+module.exports = mongoose.model('Project', ProjectSchema);

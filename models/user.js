@@ -13,3 +13,5 @@ var UserSchema = new Schema(
         github: { type: String, max: 100 }
     }
 );
+
+module.exports = mongoose.model('User', UserSchema);

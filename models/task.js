@@ -13,3 +13,5 @@ var TaskSchema = new Schema(
         following: {type: Schema.ObjectId, ref: 'Task'}
     }
 );
+
+module.exports = mongoose.model('Task', TaskSchema);
