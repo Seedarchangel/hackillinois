@@ -100,7 +100,7 @@ exports.user_get = function (req, res, next) {
     collection.findOne({'username' : curr_username})
       .then(function (result) {
         if (null != result) {
-            res.send(result)
+            res.send(JSON.stringfy(result))
         }
       })
     })
