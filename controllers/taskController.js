@@ -44,6 +44,7 @@ exports.task_list_get = function (req, res, next) {
 
 exports.task_post = function (req, res, next) {
     //TODO: async here
+    //TODO: connect pre-requisite & following tasks
     var p_tasks = null;
     var f_tasks = null;
     if (req.body.prerequisite)
