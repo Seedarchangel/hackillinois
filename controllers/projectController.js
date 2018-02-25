@@ -29,9 +29,11 @@ exports.project_post = function (req, res, next) {
                 message: 'Create project error.'
             });
         } else
+        {
             res.json({
                 status: 'ok',
                 message: 'Create project successful.'
             });
+        }
     })
 };

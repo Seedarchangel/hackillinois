@@ -44,23 +44,30 @@ exports.task_list_get = function (req, res, next) {
 
 exports.task_post = function (req, res, next) {
     //TODO: async here
-    var pretasks = req.body.prerequisite.split(',');
-    var followtasks = req.body.following.split(',');
-    var p_tasks, f_tasks;
-    Task.find({
-        name: {
-            $in: pretasks
-        }
-    }).exec(function (err, result) {
-        p_tasks = result;
-    });
-    Task.find({
-        name: {
-            $in: followtasks
-        }
-    }).exec(function (err, result) {
-        f_tasks = result;
-    });
+    var p_tasks = null;
+    var f_tasks = null;
+    if (req.body.prerequisite)
+    {
+        var pretasks = req.body.prerequisite.split(',');
+        Task.find({
+            name: {
+                $in: pretasks
+            }
+        }).exec(function (err, result) {
+            p_tasks = result;
+        });
+    }
+    if (req.body.followtasks)
+    {
+        var followtasks = req.body.following.split(',');
+        Task.find({
+            name: {
+                $in: followtasks
+            }
+        }).exec(function (err, result) {
+            f_tasks = result;
+        });
+    }
     var task = new Task({
         name: req.body.name,
         status: req.body.status,
@@ -70,7 +77,7 @@ exports.task_post = function (req, res, next) {
         prerequisite: p_tasks,
         following: f_tasks
     });
-    project.save(function (err) {
+    task.save(function (err) {
         if (err) {
             res.json({
                 status: 'error',
