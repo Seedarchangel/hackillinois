@@ -1,0 +1,44 @@
+
+
+body{
+    background-color: rgb(253, 254, 254);
+    position: absolute;
+    width: 100%;
+}
+
+.all{
+    width: 100%;
+    height: 10px;
+}
+
+.navbar{
+    background-color: black;
+    height: 62px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+.navbar_header{
+    font-size: 1.2em;
+    margin: 0px;
+    padding: 0px;
+}
+
+.main{
+    margin-top: 20px;
+    top: 62px;
+    left: 50%;
+    position: absolute;
+    margin-left: -550px;
+    width: 1100px;
+    background-color: rgb(250, 250, 250);
+    border-radius: 4px;
+    padding: 10px;
+    border: 2px solid rgb(200, 200, 200);
+}
+
+.title{
+    padding: 10px;
+}
