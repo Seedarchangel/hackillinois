@@ -9,7 +9,7 @@ var ProjectSchema = new Schema(
         repo: { type: String, max: 200},
         total_task: {type: Number, default: 0},
         task_finished: { type: Number, default: 0 },
-        task_in_process: { type: Number, default: 0 },
+        task_in_progress: { type: Number, default: 0 },
         task_unassigned: { type: Number, default: 0 },
         task: [{ type: Schema.ObjectId, ref: 'Task'}]
     }

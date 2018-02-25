@@ -10,7 +10,8 @@ var TaskSchema = new Schema(
         due_date: { type: Date, default: Date.now},
         description: { type: String, max: 200},
         prerequisite: [{type: Schema.ObjectId, ref: 'Task'}],
-        following: [{type: Schema.ObjectId, ref: 'Task'}]
+        following: [{type: Schema.ObjectId, ref: 'Task'}],
+        project: { type: Schema.ObjectId, ref: 'Project'}
     }
 );
 

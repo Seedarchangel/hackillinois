@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-var user_controller = require('../controllers/userController')
-var project_controller = require('../controllers/projectController')
-var task_controller = require('../controllers/taskController')
+var user_controller = require('../controllers/userController');
+var project_controller = require('../controllers/projectController');
+var task_controller = require('../controllers/taskController');
+var graph_controller = require('../controllers/graphController');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -25,10 +26,12 @@ router.post('/api/project', project_controller.project_post);
 
 router.post('/api/task', task_controller.task_post);
 
-router.get('/api/task/list', task_controller.task_get);
+router.get('/api/task/list', task_controller.task_list_get);
 
 router.put('/api/task', task_controller.task_put);
 
 router.get('/api/task/user', task_controller.task_user_get);
+
+router.get('/api/graph', graph_controller.graph_get);
 
 module.exports = router;

@@ -31,7 +31,7 @@ exports.project_post = function (req, res, next) {
         } else
             res.json({
                 status: 'ok',
-                message: 'Creation successful.'
+                message: 'Create project successful.'
             });
     })
 };
