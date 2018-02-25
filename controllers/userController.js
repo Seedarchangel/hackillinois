@@ -3,44 +3,50 @@ var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 var MongoClient = require('mongodb').MongoClient
 var mongodburl = "mongodb://<tester>:<testerone>@ds247698.mlab.com:47698/hackillinois"
+var mongoose = require('mongoose');
 
 exports.user_register = function(req, res, next) {
-    var username = req.post["username"];
-    var email = req.post["email"];
-    var github_name = req.post["github_name"];
-    var password = req.post["password"];
-    var confirmpassword = req.post["confirmpassword"];
-    var response;
+    var username = req.body.username;
+    var email = req.body.email;
+    var github_name = req.body.github;
+    var password = req.body.password;
+    var confirmpassword = req.body.confirmpassword;
+    var response = {};
     if(username === ""){
-      response = JSON.parse({"status":"error","message":"username cannot be empty"})
+      response = JSON.stringifyin({"status":"error","message":"username cannot be empty"});
       res.send(response);
     }
     if(email === ""){
-      response = JSON.parse({"status":"error","message":"email cannot be empty"})
+      response = JSON.stringify({"status":"error","message":"email cannot be empty"});
       res.send(response);
     }
     if(password === ""){
-      response = JSON.parse({"status":"error","message":"password cannot be empty"})
+      response = JSON.stringify({"status":"error","message":"password cannot be empty"});
       res.send(response);
     }
     if(confirmpassword === ""){
-      response = JSON.parse({"status":"error","message":"confirmpassword cannot be empty"})
+      response = JSON.stringify({"status":"error","message":"confirmpassword cannot be empty"});
       res.send(response);
     }
-    if(password === confirmpassword){
-      response = JSON.parse({"status":"error","message":"password and confirmed password do not match"})
+    if(password !== confirmpassword){
+      response = JSON.stringify({"status":"error","message":"password and confirmed password do not match"});
       res.send(response);
     }
-    MongoClient.connect(mongodbUrl, function (err, db) {
+    mongoose.connect(mongodburl);
+    // Get Mongoose to use the global promise library
+    mongoose.Promise = global.Promise;
+    // Get the default connection
+    var db = mongoose.connection;
     var collection = db.collection('users');
-    collection.findOne({'username' : username})
-      .then(function (result) {
-        if (null != result) {
-          response = JSON.parse({"status":"error","message":"user already exist"})
-          res.send(response);
-        }
-        else  {
-          var user = {
+    var user = {};
+    collection.findOne({"username" : username}, function(err, result) {
+        if (err) { res.send({"status":"error","message":"unknown error"}); }
+        if (result != undefined) {
+            response = JSON.stringify({"status":"error","message":"user already exist"})
+            res.send(response);
+          }
+        else{
+            user = {
             "username": username,
             "password": password,
             "email" : email,
@@ -48,53 +54,57 @@ exports.user_register = function(req, res, next) {
             "current_task" : null,
             "avatar" : "",
             "github" : github_name
+            };
           }
-
-          console.log("CREATING USER:", username);
-
-          collection.insert(user)
-            .then(function () {
-              db.close();
-              response = JSON.parse({"status":"ok","message":""})
-              res.send(response);
-            });
-        }
-      });
-  });
-
+      })
+    console.log("CREATING USER:", username);
+    if(user != null) {
+      collection.insert(user)
+          .then(function () {
+          db.close();
+          response = JSON.stringify({"status":"ok","message":""})
+          res.send(response);
+          });
+    }
 };
 
 exports.user_login = function (req, res, next) {
-  var curr_username = req.post["username"];
-  var curr_password = req.post["password"];
-  MongoClient.connect(mongodbUrl, function (err, db) {
-  var collection = db.collection('localUsers');
-
-  //check if username is already assigned in our database
-  collection.findOne({'username' : curr_username})
-    .then(function (result) {
-      if (null != result) {
-        if(result.body.password !== curr_password){
-          var response = JSON.parse({"status":"error","message":"user name and password does not match"})
+  var curr_username = req.body.username;
+  var curr_password = req.body.password;
+  mongoose.connect(mongodburl);
+  // Get Mongoose to use the global promise library
+  mongoose.Promise = global.Promise;
+  // Get the default connection
+  var db = mongoose.connection;
+  var collection = db.collection('users');
+  collection.findOne({"username" : curr_username}, function(err, result) {
+  if (err) {  }
+      if (result != undefined) {
+        console.log(result)
+        if(result.password !== curr_password){
+          var response = JSON.stringify({"status":"error","message":"user name and password does not match"})
           res.send(response);
         }
         else{
-          var response = JSON.parse({"status":"ok","message":""})
+          var response = JSON.stringify({"status":"ok","message":""})
           res.send(response);
         }
       }
       else  {
-        var response = JSON.parse({"status":"error","message":"user does not exist"})
+        var response = JSON.stringify({"status":"error","message":"user does not exist"})
         res.send(response);
       }
     })
-  });
 };
 
 exports.user_get = function (req, res, next) {
-    var curr_username = req.post["username"];
-    MongoClient.connect(mongodbUrl, function (err, db) {
-    var collection = db.collection('localUsers');
+    var curr_username = req.params.username;
+    mongoose.connect(mongodburl);
+    // Get Mongoose to use the global promise library
+    mongoose.Promise = global.Promise;
+    // Get the default connection
+    var db = mongoose.connection;
+    var collection = db.collection('users');
 
     //check if username is already assigned in our database
     collection.findOne({'username' : curr_username})
@@ -103,5 +113,4 @@ exports.user_get = function (req, res, next) {
             res.send(JSON.stringfy(result))
         }
       })
-    })
 };

@@ -2,7 +2,7 @@ var Project = require('../models/project')
 
 exports.project_get = function (req, res, next) {
     Project.findOne({
-        name: req.body.project_name
+        name: req.params.project_name
     }).lean().exec(function (err, result) {
         if (err) {
             return next(err);
@@ -29,9 +29,11 @@ exports.project_post = function (req, res, next) {
                 message: 'Create project error.'
             });
         } else
+        {
             res.json({
                 status: 'ok',
-                message: 'Creation successful.'
+                message: 'Create project successful.'
             });
+        }
     })
 };
