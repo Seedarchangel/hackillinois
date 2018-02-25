@@ -37,26 +37,26 @@ $.getJSON('http://localhost:3000/db', function (json) {
                 data: json.nodes.map(function (node) {
                     //console.log("happening")
                     return {
-                        x: node.x,
-                        y: node.Prerequisite.length*50,
+                        x: Math.floor((Math.random() * 300) + 1)-Math.floor((Math.random() * 300) + 1),
+                        y: node.prerequisite.length*50,
                         id: node.id,
                         name: node.name,
-                        symbolSize: 50+node.following.length*10,
+                        symbolSize: 50+node.following.length*30,
                         itemStyle: {
                             normal: {
                                 color: function(){
                                     console.log("called")
-                                    if ((node.Status)=="in_progress")
+                                    if ((node.status)=="in_progress")
                                     {
                                        //console.log("in progress")
                                        return "#dce810"
                                     }
-                                    if ((node.Status)=="finished")
+                                    if ((node.status)=="finished")
                                     {
                                         //console.log("finished")
                                         return "#1bc646"
                                     }
-                                    if ((node.Status)=="unassigned")
+                                    if ((node.status)=="unassigned")
                                     {
                                         //console.log("assigned")
                                         return "#647776"
@@ -71,13 +71,13 @@ $.getJSON('http://localhost:3000/db', function (json) {
                 edges: function () {
                     var edgelist= []
                     json.nodes.forEach(function(item){
-                    var prereqlist = item.Prerequisite
+                    var prereqlist = item.following
                     prereqlist.forEach(function(singleedge){
                     edgelist.push({
-                        source: item.id,
-                        target: singleedge
+                        target: singleedge,
+                        source: item.id
                     })
-
+                    console.log(edgelist)
                     })
                     });
                     
