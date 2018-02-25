@@ -1,33 +1,30 @@
 {
   "nodes": [
     {
-      "color": "#4f19c7",
       "name": "C",
-      "Status": "in_progress",
+      "status": "in_progress",
       "attributes": {},
-      "x": -300,
+      "x": 0,
       "id": "C",
-      "Prerequisite": ["C++", "python"],
-      "following": ["C++", "python","C++", "python"]
+      "prerequisite": [],
+      "following": ["python","C++"]
     },
     {
-      "color": "#4f19c7",
       "name": "C++",
-      "Status": "finished",
+      "status": "finished",
       "attributes": {},
-      "x": -239.36383,
-      "id": "c++",
-      "Prerequisite": ["C++", "python","C++","C++"],
-      "following": ["C++", "python"]
+      "x": 100,
+      "id": "C++",
+      "prerequisite": ["C"],
+      "following": ["python"]
     },
     {
-      "color": "#c71969",
       "name": "python",
-      "Status": "unassigned",
+      "status": "unassigned",
       "attributes": {},
-      "x": -134.2215,
+      "x": -100,
       "id": "python",
-      "Prerequisite": ["C"],
+      "prerequisite": ["C","C++"],
       "following": []
     }],
     "edges": [
