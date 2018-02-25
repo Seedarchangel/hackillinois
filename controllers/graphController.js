@@ -1,3 +1,7 @@
+var Project = require('../models/project')
+
 exports.graph_get = function (req, res, next) {
-    res.send("NOT IMPLEMENTED: graph get");
+    Project.findById(req.body.project_name).lean().exec(function (err, result){
+        res.send(result.task);
+    });
 }
