@@ -20,18 +20,18 @@ router.post('/api/login', user_controller.user_login);
 
 router.get('/api/user', user_controller.user_get);
 
-router.get('/api/project', project_controller.project_get);
+router.get('/api/project/:project_name', project_controller.project_get);
 
 router.post('/api/project', project_controller.project_post);
 
 router.post('/api/task', task_controller.task_post);
 
-router.get('/api/task/list', task_controller.task_list_get);
+router.get('/api/task/:project_name/list/', task_controller.task_list_get);
 
 router.put('/api/task', task_controller.task_put);
 
-router.get('/api/task/user', task_controller.task_user_get);
+router.get('/api/task/user/:username', task_controller.task_user_get);
 
-router.get('/api/graph', graph_controller.graph_get);
+router.get('/api/graph/:project_name', graph_controller.graph_get);
 
 module.exports = router;

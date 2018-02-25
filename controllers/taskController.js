@@ -2,7 +2,7 @@ var Task = require('../models/task')
 
 exports.task_list_get = function (req, res, next) {
     var taskQuery = Task.find({
-        project: req.body.project_name
+        project: req.param.project_name
     })
     var finishedTasks = [];
     taskQuery.select({
@@ -64,11 +64,11 @@ exports.task_post = function (req, res, next) {
     var task = new Task({
         name: req.body.name,
         status: req.body.status,
-        assigned_user = req.body.assigned_user,
+        assigned_user: req.body.assigned_user,
         due_date: req.body.due_date,
         description: req.body.description,
-        prerequisite = p_tasks,
-        following = f_tasks
+        prerequisite: p_tasks,
+        following: f_tasks
     });
     project.save(function (err) {
         if (err) {
@@ -115,7 +115,7 @@ exports.task_put = function (req, res, next) {
 
 exports.task_user_get = function (req, res, next) {
     Task.find({
-        assigned_user: req.body.username
+        assigned_user: req.params.username
     }).lean().exec(function (err, result) {
         res.send(result);
     });
